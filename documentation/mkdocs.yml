@@ -1,0 +1,11 @@
+site_name: LMU Navigator
+repo_url: https://github.com/lmu-navigator
+theme: readthedocs
+pages:
+- ['index.md', 'Startseite']
+- ['user-guide/index.md', 'User-Guide', 'Home']
+- ['admin-guide/index.md', 'Admin-Guide', 'Home']
+- ['developer-guide/index.md', 'Developer-Guide', 'Home']
+- ['developer-guide/android.md', 'Developer-Guide', 'Android']
+- ['developer-guide/ios.md', 'Developer-Guide', 'iOS']
+- ['developer-guide/server.md', 'Developer-Guide', 'Server']

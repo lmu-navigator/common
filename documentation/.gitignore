@@ -1,0 +1,2 @@
+# mkdocs: we don't want our generated site to be included
+site/

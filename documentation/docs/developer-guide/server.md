@@ -7,6 +7,7 @@ Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und 
 __Übersicht:__
 * Installation
 * Architektur (Struktur)
+* REST API
 * Deployment
 
 ## Installation
@@ -76,13 +77,85 @@ Sollte es zu Problemen bei dem Ausführen des Servlets kommen, kann es u.a. dara
 * Und hier noch eine Übersicht der verwendeten JARs
 ![](images/server/konfiguration-2.png)
 
+* Sicherstellen, dass Tomcat auch als Runtime Environment zu Eclipse hinzugefügt wurde.
+![](images/server/konfiguration-2.png)
+
 
 
 ## Architektur
 
+* Erklärung des Datenmodells
 * Erklärung der Module
 * Wie die Module und Klassen zusammenhängen
 * Wie man auf den Server zugreifen kann
+
+
+### Modell
+
+Das Modell ist im Package `de.lmu.navigator.server.model` abgelegt. Für uns wichtig sind folgende Klassen: (mit Mapping von unserem Datenmodell zu den CSV-Dateien von der LMU)
+
+    City.java            <->    01_Stadt.csv
+    Street.java          <->    02_Strasse.csv
+    Building.java        <->    03_Bauwerk.csv
+    BuildingPart.java    <->    04_BauteilHaus.csv
+    Floor.java           <->    05_Geschoss.csv
+    Room.java            <->    06_Raum.csv
+
+Zwischen den jeweiligen Modell-Hierarchien besteht eine 1-zu-N-Beziehung (von City zu Street, von Street zu Building, usw).
+
+
+### Packages
+
+Der Java Tomcat-Server besteht aus folgenden fünf Packages:
+
+    de.lmu.navigator.server           (REST API / Jersey)
+    de.lmu.navigator.server.data      (Logik für Raumpositionierung)
+    de.lmu.navigator.server.database  (MySQL Integration)
+    de.lmu.navigator.server.model     (Datenmodell)
+    de.lmu.navigator.server.upload    (CSV Importer)
+
+#### Modell-Package
+
+Das gerade beschriebene Datenmodell liegt im Package `de.lmu.navigator.server.model` vor. Dort liegen neben den oben beschriebenen Objekttypen noch ein paar weitere Klassen bereit:
+
+    Settings.java                 (Pfade wo PNGs/PDFs im Dateisystem liegen)
+    Version.java                  (Fortlaufende Numerierung für Versionskontrolle)
+
+Zum Zeitpunkt des Praktikums haben wir auch noch __Wegegraphen__ für das Indoor-Routing gespeichert, welcher in der aktuellen Version der App und des Servers gestrichen wurde. Für diesen Wegegraphen hatten wir folgende Klassen angelegt:
+
+    RoutingNode.java              (Knoten)
+    RoutingEdge.java              (Kante)
+    RoutingFloorConnection.java   (Verbindet stockwerkübergreifend Knoten)
+    RoutingRoomConnection.java    (Verbindet Räume mit Knoten)
+
+
+#### Hauptmodul
+
+Das Hauptmodul `de.lmu.navigator.server` definiert die REST API und stellt somit den Entry Point für die Server-Anwendung dar. Umgesetzt wurde dieser Teil mit der [Java API for RESTful Services (JAX-RS)](https://jax-rs-spec.java.net/) (Package javax.ws.rs). Für nähere Informationen zu Jersey (JAX-RS) siehe: https://jersey.java.net/documentation/latest/index.html
+
+Das Mapping von REST URI zu den Getter und Setter Funktionen funktioniert recht intuitiv über Annotationen direkt im Code. An der Klasse selbst legt man fest, welches
+
+``` java
+@Path("/rooms")
+public class Rooms {
+
+  @GET
+  @Produces("application/json")
+  public ArrayList<Room> getRoomsByRange(
+    @DefaultValue("") @QueryParam("code") String roomCode,
+    @DefaultValue("") @QueryParam("floor") String floorCode)
+    throws Exception {
+      ...
+  }
+}
+
+```
+
+Für die Klassen XX bis XX ist der Aufbau analog.
+
+Als Datenbank-Anbindung haben wir jeweils die Klassen CityMySQL - RoomMySQL angelegt.
+
+
 
 ## Datenbank
 
@@ -94,7 +167,7 @@ Ein vollständiger MySQL-Dump der Datenbank kann im privaten GitHub-Repository g
 
 Zur Veranschaulichung findet ihr hier die Struktur der MySQL Tabellen (Stand Februar 2015). Der aktuelle Stand wird
 
-
+<!--
 ``` sql
 CREATE TABLE IF NOT EXISTS `1_city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -213,18 +286,18 @@ CREATE TABLE IF NOT EXISTS `routing_room_connections` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
-
+-->
 
 
 ## REST API
 
 Im folgenden wird die REST Schnittstelle des Tomcat Servers beschrieben. Aktuell kann die REST-API für den Server unter folgender Adresse aufgerufen werden: http://141.84.213.246:8080/lmu-navigator/rest/
 
+Für den Produktiveinsatz arbeiten wir vorerst mit statischen JSON-Dateien. Zum einen da sich der Datenbestand meist nur einmal pro Semester verändert, zum anderen da wir dadurch auf Server der LMU München zurückgreifen können. Die neu generierten JSON-Dateien werden bei jeder Verändernug (Veränderung der Versionsnummer `/rest/version`) erneut am Mobilgerät eingelesen. Die Aktualisierung ist einmal pro Semester in Rücksprache mit den Referaten geplant.
+
 Nützliche Links für die Entwicklung:
 * http://stackoverflow.com/q/630453/1402076 (PUT vs POST)
 * http://goo.gl/C3FPyt (Advanced Rest Client / Chrome Plugin)
-
-Für den Produktiveinsatz arbeiten wir vorerst aus unterschiedlichen Gründen mit statischen JSON-Dateien. Diese werden bei einer Veränderung der Versions-Nummer (`/rest/version`) erneut am Mobilgerät eingelesen. Eine Aktualisierung ist aktuell einmal pro Semester geplant.
 
 ### Statische JSON Dateien
 
@@ -284,6 +357,30 @@ __GET /version__
 __Besonderheiten:__ Es werden nur Räume als JSON ausgegeben, die eine gültige Position haben (PosX != 0 + PosY != 0) und sichtbar sind (hidden == 0). Nicht positionierte und deaktivierte Räume werden somit nicht zur App übertragen.
 
 
+
+
+## Deployment des Servers
+
+Schritt für Schritt-Anleitung:
+
+* Zuerst in `de.lmu.navigator.server.database.Database.java` die Flag `PRODUCTION_SERVER` auf `true` setzen, und nach dem Exportieren der WAR file wieder zurück auf `false` (=development environment).
+
+* Eclipse-Projekt als WAR-File exportieren
+![](images/server/deployment-1.png)
+
+* WinSCP starten und am Server einloggen
+
+* Die WAR-Datei hochladen und nun folgende Kommandos ausführen
+
+    sudo rm webapps/lmu-navigator.war
+    sudo rm webapps/lmu-navigator/ -r
+    sudo mv lmu-navigator.war webapps/
+
+Der Pfad für `webapps` variiert von System zu System. Auf dem aktuellen System weist er auf `/var/lib/tomcat7/webapps`.
+
+Bei Problemen mit Tomcat auf dem [141.84.213.246](http://141.84.213.246:8080/)-Server am besten mal in das [GitLab-Wiki](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/wikis/tomcat-server) schauen.
+
+
 ## Room Canvas
 
 Manually updating the room positions of on the RoomsOverview servlet, e.g.: http://localhost:8080/lmu-navigator/data/rooms?floor=g650301
@@ -296,4 +393,4 @@ Features:
 
 # Future Work
 
-Auf den MEAN-Stack migrieren, Node.js für das Backend verwenden und Angular.js für das Frontend.
+Auf den MEAN-Stack migrieren, Node.js für das Backend verwenden und Angular.js, Ember.js oder Backbone.js für das Frontend.

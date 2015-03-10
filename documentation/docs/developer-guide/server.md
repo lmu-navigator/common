@@ -4,7 +4,10 @@ __Repository: __ https://github.com/lmu-navigator/server
 
 Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und Verteilte Systeme](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/index.html) im Wintersemester 2013/14. Dort haben wir einen RESTful Web Service mit Hilfe von Java, [Tomcat](http://tomcat.apache.org/), [Jersey](https://jersey.java.net/) (JAX-RS) und [MySQL](http://www.mysql.com/) aufgesetzt, hier die [Folien zur damaligen Übung](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/05-rest.pdf).
 
+Falls noch Zugriff auf alte Entwicklungsstände benötigt wird, kann man die alten Repositories über folgende Links erreichen (man benötigt jedoch einen [GitLab](https://gitlab.cip.ifi.lmu.de/)-Zugang): Repository aus dem [Wintersemester 2013/14](https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi) und aus dem darausfolgenden [Sommersemester 2014](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/).
+
 __Übersicht:__
+
 * Installation
 * Architektur (Struktur)
 * REST API

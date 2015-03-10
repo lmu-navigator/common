@@ -1,39 +1,33 @@
 # LMU Navigator
 
 
-## Motivation
+Willkommen bei der Dokumentation für den [LMU Navigator](http://lmu-navigator.github.io/), einem studentischen Forschungsprojekt zur Indoor-Navigation und -Positionierung an der [LMU München](http://www.uni-muenchen.de/).
 
-Ein studentisches Forschungsprojekt der [LMU München](http://www.uni-muenchen.de/).
+Das Projekt ist im Rahmen des Mobile und Verteilte Systeme Praktikums im Wintersemester 2013/14 entstanden. Seit dem Sommersemester 2014 wird das Projekt von Timo Loewe und Lukas Ziegler gepflegt. Unser Ziel war es die bestehende Funktionalität auf einen stabilen Stand zu bringen, den Datenbestand zu vervollständigen und die App für die ganze Universität zu veröffentlichen.
+
 
 ## Überblick
 
-Warum bist du hier?
+Der aktuelle Funktionsumfang beinhaltet: +++
 
-* User
-* Developer
-* Admin
+* Outdoor-Navigation (mit Google Maps)
+* Indoor-Raumsuche (basierend auf Kacheln)
 
-## Repositories
+Der LMU Navigator ist eine App zum ... +++
 
-__GitHub-Projekt__ https://github.com/lmu-navigator
+
+
+Den aktuellen Source-Code kannst du in den folgenden [GitHub](https://github.com/lmu-navigator)-Repositories einsehen:
+
 * [android](https://github.com/lmu-navigator/android)
 * [ios](https://github.com/lmu-navigator/ios)
 * [server](https://github.com/lmu-navigator/server)
 * [common](https://github.com/lmu-navigator/common)
 
-__Alte Repositories__
-* WS13/14: https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/
-* SS14 + WS14/15: https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi
 
+# Mach mit!
 
-
-# Mitwirkende
+Hast du Interesse an dem Projekt mitzuwirken und neue Funktionalität in die App zu integrieren? Dann melde dich bei uns.
 
 Timo Loewe (timo.loewe (at) campus.lmu.de) <br />
 Lukas Ziegler (lukas.ziegler (at) campus.lmu.de)
-
-
-# Links
-
-* http://lmu-navigator.github.io/
-* For MkDocs documentation visit [mkdocs.org](http://mkdocs.org) and [readthedocs.org](docs.readthedocs.org/en/latest/getting_started.html).

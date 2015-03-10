@@ -68,6 +68,7 @@ Hierfür die REST API manuell aufrufen und manuell als JSON-Datei abspeichern.
 * http://141.84.213.246:8080/lmu-navigator/rest/buildingparts
 * http://141.84.213.246:8080/lmu-navigator/rest/floors
 * http://141.84.213.246:8080/lmu-navigator/rest/rooms
+* http://141.84.213.246:8080/lmu-navigator/rest/version
 
 
 ## 4. Tiles generieren

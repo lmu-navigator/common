@@ -4,7 +4,9 @@ __Repository: __ https://github.com/lmu-navigator/server
 
 Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und Verteilte Systeme](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/index.html) im Wintersemester 2013/14. Dort haben wir einen RESTful Web Service mit Hilfe von Java, [Tomcat](http://tomcat.apache.org/), [Jersey](https://jersey.java.net/) (JAX-RS) und [MySQL](http://www.mysql.com/) aufgesetzt, hier die [Folien zur damaligen Übung](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/05-rest.pdf).
 
-Falls noch Zugriff auf alte Entwicklungsstände benötigt wird, kann man die alten Repositories über folgende Links erreichen (man benötigt jedoch einen [GitLab](https://gitlab.cip.ifi.lmu.de/)-Zugang): Repository aus dem [Wintersemester 2013/14](https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi) und aus dem darausfolgenden [Sommersemester 2014](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/).
+Der Server aus dem Praktikum war über folgende Adresse erreichbar: [http://141.84.213.246:8080/lmu-navigator/](http://141.84.213.246:8080/lmu-navigator/). Wie lange dieser Server noch verfügbar bleibt, ist jedoch ungewiss.
+
+Die alten Repositories aus dem Praktikum sind noch auf GitLab verfügbar: das Repo aus dem [Wintersemester 2013/14](https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi) und aus dem darausfolgenden [Sommersemester 2014](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/).
 
 __Übersicht:__
 
@@ -59,29 +61,29 @@ Import des Projektes
 * Eclipse installieren (Version siehe oben)
 
 * Projekt importieren
-![](images/server/installation-1.png)
+<br>![](developer-guide/images/server/installation-1.png)
 
 * General > Existing Projects into Workspace
-![](images/server/installation-2.png)
+<br>![](developer-guide/images/server/installation-2.png)
 
 * Projekt hinzufügen
-![](images/server/installation-3.png)
+<br>![](developer-guide/images/server/installation-3.png)
 
 __Konfiguration von Eclipse__
 
 Sollte es zu Problemen bei dem Ausführen des Servlets kommen, kann es u.a. daran liegen, dass Eclipse das Projekt noch nicht als Dynamic Web Project erkennt. Hierfür müssen u.a. folgende Projekt-Einstellungen vorgenommen sein:
 
 * Java Version 1.6, da auf dem aktuellen Server (http://141.84.213.246:8080) nur Java 1.6 installiert ist.
-![](images/server/konfiguration-1.png)
+<br>![](developer-guide/images/server/konfiguration-1.png)
 
 * Sicherstellen, dass die Facets _Dynamic Web Module_ und _JAXB_ ausgewählt sind.
-![](images/server/konfiguration-3.png)
+<br>![](developer-guide/images/server/konfiguration-3.png)
 
 * Und hier noch eine Übersicht der verwendeten JARs
-![](images/server/konfiguration-2.png)
+<br>![](developer-guide/images/server/konfiguration-2.png)
 
 * Sicherstellen, dass Tomcat auch als Runtime Environment zu Eclipse hinzugefügt wurde.
-![](images/server/konfiguration-2.png)
+<br>![](developer-guide/images/server/konfiguration-2.png)
 
 
 
@@ -168,9 +170,8 @@ Die Architektur der Datenbank ist angelehnt an die Struktur der CSV-Dateien, wel
 
 Ein vollständiger MySQL-Dump der Datenbank kann im privaten GitHub-Repository gefunden werden: https://github.com/lmu-navigator/data/tree/master/sql
 
-Zur Veranschaulichung findet ihr hier die Struktur der MySQL Tabellen (Stand Februar 2015). Der aktuelle Stand wird
+Zur Veranschaulichung findet ihr hier die Struktur der MySQL Tabellen (Stand Februar 2015). Den aktuellen Stand findet ihr in der https://github.com/lmu-navigator/data/blob/master/sql/mysql-init.sql Datei.
 
-<!--
 ``` sql
 CREATE TABLE IF NOT EXISTS `1_city` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -289,75 +290,85 @@ CREATE TABLE IF NOT EXISTS `routing_room_connections` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
--->
+
 
 
 ## REST API
 
 Im folgenden wird die REST Schnittstelle des Tomcat Servers beschrieben. Aktuell kann die REST-API für den Server unter folgender Adresse aufgerufen werden: http://141.84.213.246:8080/lmu-navigator/rest/
 
-Für den Produktiveinsatz arbeiten wir vorerst mit statischen JSON-Dateien. Zum einen da sich der Datenbestand meist nur einmal pro Semester verändert, zum anderen da wir dadurch auf Server der LMU München zurückgreifen können. Die neu generierten JSON-Dateien werden bei jeder Verändernug (Veränderung der Versionsnummer `/rest/version`) erneut am Mobilgerät eingelesen. Die Aktualisierung ist einmal pro Semester in Rücksprache mit den Referaten geplant.
+Für den Produktiveinsatz arbeiten wir vorerst mit statischen JSON-Dateien. Zum einen da sich der Datenbestand meist nur einmal pro Semester verändert, zum anderen da wir dadurch auf Server der LMU München zurückgreifen können. Die neu generierten JSON-Dateien werden bei jeder Veränderung (Inkrementierung der Versionsnummer `/rest/version`) erneut in die App eingelesen. Die Aktualisierung ist einmal pro Semester in Rücksprache mit den Referaten geplant.
 
 Nützliche Links für die Entwicklung:
-* http://stackoverflow.com/q/630453/1402076 (PUT vs POST)
-* http://goo.gl/C3FPyt (Advanced Rest Client / Chrome Plugin)
+
+* [PUT vs POST](http://stackoverflow.com/q/630453/1402076)
+* [Chrome Plugin: Advanced Rest Client](http://goo.gl/C3FPyt)
 
 ### Statische JSON Dateien
 
-Alle für die App relevanten Raum- und Gebäudedaten liegen auf folgendem Server der LMU vor:
+Ursprünglich war angedacht alle für die App relevanten Raum- und Gebäudedaten auf einem StaticServer der LMU zu hosten. Sollte die App mal richtig an Fahrt aufnehmen, wäre dieser Schritt noch überlegenswert. Ansprechpartner für den StaticServer wäre das [Referat für Internetdienste](http://www.internetdienste.verwaltung.uni-muenchen.de/funktionen/kontakt/index.html).
 
-    TODO StaticServer URI
-
-asdf
+Für Entwicklungszwecke haben wir vorerst auf das Hosting von github.io zurückgegriffen. Die gleichen Dateien, welche wir später noch auf die LMU-Server auslagern können, sind direkt über folgende URL erreichbar: [lmu-navigator.github.io/data/json/](http://lmu-navigator.github.io/data/json/)
 
     1_city.json
     2_street.json
     3_building.json
-    3_building_position.json
     4_building_part.json
     5_floor.json
     6_room.json
     version.json
 
-Hier werden neben den JSON Dateien auch die Gebäudepläne im PNG- und PDF-Format gehosted. Ansprechpartner für diesen Server ist das [Referat für Internetdienste](http://www.internetdienste.verwaltung.uni-muenchen.de/funktionen/kontakt/index.html).
+Hier werden neben den JSON Dateien auch die Gebäudepläne im PNG- & PDF-Format und die Fotos der Gebäude gehosted, siehe den [Admin-Guide](admin-guide/).
 
 
 ### REST Funktionalität des Tomcat Servers
 
-__GET /version__
-* liefert die aktuelle Version der Datenbasis<br>
-  {"version":7,"timestamp":1409688383}
+Sofern der Tomcat-Server verwendet wird, steht auch eine REST-Schnittstelle zur Verfügung, über welchen gezielt einzelne Räume, Stockwerke oder Gebäude(teile) angesprochen werden können. Anbei eine kurze Beschreibung der vorhandenen Funktionalität. Alle Requests und Responses benutzen die JSON Syntax.
 
+__GET /ping__ dient zum Testen des Servers und liefert "Pong" zurück, sofern das Tomcat Servlet erfolgreich deployed wurde.
+
+__GET /version__ liefert die Versionsnummer für den aktuellen Stand der Daten.
+<br> {"version":7,"timestamp":1409688383}
 
 #### /cities
 
-* __GET	/cities__
-  returns a list of all cities with LMU buildings
-
+__GET	/cities__ liefert eine Liste aller Stadtteile mit LMU Gebäuden.
 
 #### /streets
 
+__GET	/streets__ liefert eine Liste aller Straßen mit LMU Gebäuden. Die Liste lässt sich über die GET Parameter ?code={StreetCode} und ?city={CityCode} zusätzlich filtern.
+
+__GET	/streets/{StreetCode}__ liefert die über {StreetCode} angeforderte Straße zurück.
+
 #### /buildings
+
+__GET	/buildings__ liefert eine Liste aller LMU-Gebäude zurück. Die Liste lässt sich über die GET Parameter ?building={BuildingCode} und ?street={StreetCode} zusätzlich filtern.
+
+__GET	/buildings/{BuildingCode}__ liefert das über {BuildingCode} angeforderte Gebäude zurück.
 
 #### /buildingparts
 
+__GET	/buildingparts__ liefert eine Liste aller LMU-Gebäudeteile. Die Liste lässt sich über die GET Parameter ?buildingpart={BuildingPartCode} und ?building={BuildingCode} zusätzlich filtern.
+
+__GET	/buildingparts/{BuildingPartCode}__ liefert das über {BuildingPartCode} angeforderte Gebäudeteil zurück.
+
 #### /floors
 
-* __GET /floors/{floorCode}__
-  returns a single floor for the requested floor ID / code
+__GET	/floors__ liefert eine Liste aller Stockwerke der gesamten LMU zurück. Die Liste lässt sich über die GET Parameter ?code={FloorCode} und ?buildingpart={BuildingPartCode} zusätzlich filtern.
 
-* __GET /floors/{floorCode}/bordering__
-  returns all floors associated to the same mapUri (PDF file), excluding the floor itself, required for buildings like the main building (Geschwister-Scholl-Platz)
+__GET	/floors/{FloorCode}__ liefert das über {FloorCode} angeforderte Stockwerk zurück.
 
-* __GET /floors__
-  returns all available floors from the database
-
-* __GET /floors?code={floorCode}&buildingpart={buildingPartCode}__
-  returns all available floors from the database
+__GET /floors/{floorCode}/bordering__ liefert alle benachbarten Stockwerke zurück, welche auf die gleiche PDF-Datei (mapUri) zurückgreifen, sich selbst ausgeschlossen. Diese Funktionalität ist für Gebäude wie das Hauptgebäude notwendig, da dort auf einer PDF mehrere Floors enthalten sind und diese somit rekursiv geladen werden können.
 
 #### /rooms
 
-__Besonderheiten:__ Es werden nur Räume als JSON ausgegeben, die eine gültige Position haben (PosX != 0 + PosY != 0) und sichtbar sind (hidden == 0). Nicht positionierte und deaktivierte Räume werden somit nicht zur App übertragen.
+__GET	/rooms__ liefert eine Liste aller Räume der gesamten LMU zurück. Die Liste lässt sich über die GET Parameter ?code={FloorCode} und ?buildingpart={BuildingPartCode} zusätzlich filtern.
+
+__GET	/rooms/{RoomCode}__ liefert den über {RoomCode} angeforderten Raum zurück.
+
+__POST	/rooms/{RoomCode}__ ermöglicht das Anlegen eines neuen Raumes in der Datenbank.
+
+__Besonderheiten:__ Es werden nur Räume als JSON ausgegeben, die eine gültige Position haben (PosX != 0 + PosY != 0) und sichtbar sind (hidden == 0). Nicht positionierte und deaktivierte Räume werden somit nicht über die REST-Schnittstelle ausgegeben.
 
 
 
@@ -369,15 +380,17 @@ Schritt für Schritt-Anleitung:
 * Zuerst in `de.lmu.navigator.server.database.Database.java` die Flag `PRODUCTION_SERVER` auf `true` setzen, und nach dem Exportieren der WAR file wieder zurück auf `false` (=development environment).
 
 * Eclipse-Projekt als WAR-File exportieren
-![](images/server/deployment-1.png)
+<br>![](developer-guide/images/server/deployment-1.png)
 
 * WinSCP starten und am Server einloggen
 
 * Die WAR-Datei hochladen und nun folgende Kommandos ausführen
 
-    sudo rm webapps/lmu-navigator.war
-    sudo rm webapps/lmu-navigator/ -r
-    sudo mv lmu-navigator.war webapps/
+```
+  sudo rm webapps/lmu-navigator.war
+  sudo rm webapps/lmu-navigator/ -r
+  sudo mv lmu-navigator.war webapps/
+```
 
 Der Pfad für `webapps` variiert von System zu System. Auf dem aktuellen System weist er auf `/var/lib/tomcat7/webapps`.
 

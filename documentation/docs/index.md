@@ -1,32 +1,72 @@
-# LMU Navigator
+# LMU Navigator Dokumentation
 
-Willkommen bei der Dokumentation für den [LMU Navigator](http://lmu-navigator.github.io/), einem studentischen Forschungsprojekt zur Indoor-Navigation und -Positionierung an der [LMU München](http://www.uni-muenchen.de/).
+Willkommen bei der Dokumentation für den [LMU Navigator][1]!
 
-Das Projekt ist im Rahmen des Mobile und Verteilte Systeme Praktikums im Wintersemester 2013/14 entstanden. Seit dem Sommersemester 2014 wird das Projekt von Timo Loewe und Lukas Ziegler gepflegt. Unser Ziel war es die bestehende Funktionalität auf einen stabilen Stand zu bringen, den Datenbestand zu vervollständigen und die App für die ganze Universität zu veröffentlichen.
+## Was ist der LMU Navigator?
 
+Der LMU Navigator ist ein studentisches Forschungsprojekt zweier Informatiker an der
+[LMU München][2]. Ziel des Projekts ist es, Studenten die Orientierung auf dem verteilten Campus der
+LMU zu erleichtern, indem Gebäude- und Raumdaten der Universität geeignet aufbereitet und in einer
+App bereitgestellt werden.
+
+[1]: http://lmu-navigator.github.io/
+[2]: http://www.uni-muenchen.de
 
 ## Überblick
 
-Der aktuelle Funktionsumfang beinhaltet: +++
+Das Projekt besteht aus mehreren Teilen:
 
-* Outdoor-Navigation (mit Google Maps)
-* Indoor-Raumsuche (basierend auf Kacheln)
+### Android-App
 
-Der LMU Navigator ist eine App zum ... +++
+Hauptbestandteil ist eine Android-App mit folgenden Features:
 
+* Alle Standorte der LMU lassen sich durchsuchen oder auf einer Karte anzeigen
+* Zu einem Standort kann eine Routenführung gestartet und die zugehörigen Gebäudepläne angezeigt
+werden
+* Die Räume eines Standortes können durchsucht und auf den Gebäudeplänen lokalisiert werden
+* Die Gebäude- und Raumdaten können regelmäßig aktualisiert werden
 
+Unser Ziel ist es, diese App zu veröffentlichen und damit allen Studenten bereitzustellen. Auf Grund
+rechtlicher Fragen ist dies bisher jedoch noch nicht möglich.
 
-Den aktuellen Source-Code kannst du in den folgenden [GitHub](https://github.com/lmu-navigator)-Repositories einsehen:
+### Administrator-Interface
 
-* [android](https://github.com/lmu-navigator/android)
-* [ios](https://github.com/lmu-navigator/ios)
-* [server](https://github.com/lmu-navigator/server)
-* [common](https://github.com/lmu-navigator/common)
+Zusätzlich zur App wurde ein Administrator-Interface erstellt, mit dessen Hilfe die von der
+Universität zur Verfügung gestellten Daten aufbereitet werden. Insbesondere wurde ein Algorithmus
+entwickelt, der es erlaubt, Räume auf dem zugehörigen PDF-Gebäudeplan zu lokalisieren.
 
+### iOS-App
 
-# Mach mit!
+Es existiert ein rudimentärer Port der Android-App für iOS, welcher jedoch noch nicht alle Features
+beinhaltet. Hier ist noch einige Arbeit nötig, um die App potentiell veröffentlichbar zu machen.
 
-Hast du Interesse an dem Projekt mitzuwirken und neue Funktionalität in die App zu integrieren? Dann melde dich bei uns.
+## Lies weiter!
+
+Mehr Details zu den einzelnen Komponenten findest Du auf den jeweiligen Unterseiten:
+
+* [Android-App][3]
+* [Admin-Server][4]
+* [Admin-Guide][5]
+* [iOS-App][6]
+
+[3]: android.md
+[4]: server.md
+[5]: admin.md
+[6]: ios.md
+
+## Mach mit!
+
+Das Projekt ist Open-Source! Den Aktuellen Code kannst Du bei [GitHub][7] einsehen.
+
+* Du willst mehr wissen?
+* Du willst Feedback oder Verbesserungsvorschläge loswerden?
+* Du hast Interesse, an dem Projekt mitzuwirken oder es weiterzuentwickeln?
+
+**Dann melde Dich bei uns!**
+
+[7]: https://github.com/lmu-navigator
+
+### Kontakt
 
 Timo Loewe (timo.loewe (at) campus.lmu.de) <br />
 Lukas Ziegler (lukas.ziegler (at) campus.lmu.de)

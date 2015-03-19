@@ -1,6 +1,6 @@
 # Server Dokumentation
 
-__Repository: __ https://github.com/lmu-navigator/server
+__Repository:__ https://github.com/lmu-navigator/server
 
 Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und Verteilte Systeme](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/index.html) im Wintersemester 2013/14. Dort haben wir einen RESTful Web Service mit Hilfe von Java, [Tomcat](http://tomcat.apache.org/), [Jersey](https://jersey.java.net/) (JAX-RS) und [MySQL](http://www.mysql.com/) aufgesetzt, hier die [Folien zur damaligen Übung](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/05-rest.pdf).
 

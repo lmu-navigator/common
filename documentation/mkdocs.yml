@@ -1,12 +1,10 @@
 site_name: LMU Navigator
 site_url: http://lmu-navigator.github.io
 repo_url: https://github.com/lmu-navigator
-theme: readthedocs
 pages:
 - ['index.md', 'Startseite']
-- ['user-guide/index.md', 'Funktionalität der App', 'User-Guide']
-- ['admin-guide/index.md', 'Infos zur Wartung', 'Admin-Guide']
-- ['developer-guide/index.md', 'Developer-Guide', 'Mach mit!']
-- ['developer-guide/android.md', 'Developer-Guide', 'Android']
-- ['developer-guide/ios.md', 'Developer-Guide', 'iOS']
-- ['developer-guide/server.md', 'Developer-Guide', 'Server']
+- ['admin.md', 'Admin-Guide']
+- ['android.md', 'Android']
+- ['ios.md', 'iOS']
+- ['server.md', 'Server']
+theme: readthedocs

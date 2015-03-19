@@ -59,6 +59,12 @@ Die App lässt sich auch über die Kommandozeile bauen (aus dem Root-Verzeichnis
 Die fertige .apk-Datei befindet sich anschließend im Ordner *app/build/outputs/apk/* und lässt sich
 beispielsweise via `adb` installieren.
 
+### Google API Key
+
+Damit die Google Maps Karte in der App angezeigt wird, muss jeder Entwickler sein Debug-Zertifikat
+in der Google-API-Konsole eintragen. Wir nutzen dafür immer noch den alten Praktikumsaccount, dies
+könnte sich jedoch in Zukunft ändern. Melde Dich bei uns und wir fügen Dein Zertifikat hinzu!
+
 ## Code Dokumentation
 
 Der Code ist derzeit nur wenig dokumentiert. Wer jedoch mit Android-Entwicklung vertraut ist,

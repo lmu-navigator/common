@@ -3,6 +3,7 @@ site_url: http://lmu-navigator.github.io
 repo_url: https://github.com/lmu-navigator
 pages:
 - ['index.md', 'Startseite']
+- ['app.md', 'App-Übersicht']
 - ['admin.md', 'Admin-Guide']
 - ['android.md', 'Android']
 - ['ios.md', 'iOS']

@@ -61,29 +61,29 @@ Import des Projektes
 * Eclipse installieren (Version siehe oben)
 
 * Projekt importieren
-<br>![](developer-guide/images/server/installation-1.png)
+<br>![](images/server/installation-1.png)
 
 * General > Existing Projects into Workspace
-<br>![](developer-guide/images/server/installation-2.png)
+<br>![](images/server/installation-2.png)
 
 * Projekt hinzufügen
-<br>![](developer-guide/images/server/installation-3.png)
+<br>![](images/server/installation-3.png)
 
 __Konfiguration von Eclipse__
 
 Sollte es zu Problemen bei dem Ausführen des Servlets kommen, kann es u.a. daran liegen, dass Eclipse das Projekt noch nicht als Dynamic Web Project erkennt. Hierfür müssen u.a. folgende Projekt-Einstellungen vorgenommen sein:
 
 * Java Version 1.6, da auf dem aktuellen Server (http://141.84.213.246:8080) nur Java 1.6 installiert ist.
-<br>![](developer-guide/images/server/konfiguration-1.png)
+<br>![](images/server/konfiguration-1.png)
 
 * Sicherstellen, dass die Facets _Dynamic Web Module_ und _JAXB_ ausgewählt sind.
-<br>![](developer-guide/images/server/konfiguration-3.png)
+<br>![](images/server/konfiguration-3.png)
 
 * Und hier noch eine Übersicht der verwendeten JARs
-<br>![](developer-guide/images/server/konfiguration-2.png)
+<br>![](images/server/konfiguration-2.png)
 
 * Sicherstellen, dass Tomcat auch als Runtime Environment zu Eclipse hinzugefügt wurde.
-<br>![](developer-guide/images/server/konfiguration-2.png)
+<br>![](images/server/konfiguration-2.png)
 
 
 
@@ -380,7 +380,7 @@ Schritt für Schritt-Anleitung:
 * Zuerst in `de.lmu.navigator.server.database.Database.java` die Flag `PRODUCTION_SERVER` auf `true` setzen, und nach dem Exportieren der WAR file wieder zurück auf `false` (=development environment).
 
 * Eclipse-Projekt als WAR-File exportieren
-<br>![](developer-guide/images/server/deployment-1.png)
+<br>![](images/server/deployment-1.png)
 
 * WinSCP starten und am Server einloggen
 

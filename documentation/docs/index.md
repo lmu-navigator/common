@@ -26,6 +26,8 @@ werden
 * Die Räume eines Standortes können durchsucht und auf den Gebäudeplänen lokalisiert werden
 * Die Gebäude- und Raumdaten können regelmäßig aktualisiert werden
 
+Screenshots und eine kurze Erklärung der Benutzeroberfläche befinden sich unter [App-Übersicht][8].
+
 Unser Ziel ist es, diese App zu veröffentlichen und damit allen Studenten bereitzustellen. Auf Grund
 rechtlicher Fragen ist dies bisher jedoch noch nicht möglich.
 
@@ -44,15 +46,17 @@ beinhaltet. Hier ist noch einige Arbeit nötig, um die App potentiell veröffent
 
 Mehr Details zu den einzelnen Komponenten findest Du auf den jeweiligen Unterseiten:
 
+* [App-Übersicht][8]
+* [Admin-Guide][5]
 * [Android-App][3]
 * [Admin-Server][4]
-* [Admin-Guide][5]
 * [iOS-App][6]
 
 [3]: android.md
 [4]: server.md
 [5]: admin.md
 [6]: ios.md
+[8]: app.md
 
 ## Mach mit!
 

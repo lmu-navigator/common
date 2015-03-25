@@ -1,19 +1,19 @@
 # Server Dokumentation
 
-__Repository:__ https://github.com/lmu-navigator/server
+Hier findest Du Informationen zum Server, welcher für die Aufbereitung der Raum- und Gebäudedaten programmiert wurde. Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und Verteilte Systeme](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/index.html) im Wintersemester 2013/14. Dort haben wir einen RESTful Web Service mit Hilfe von Java, [Tomcat](http://tomcat.apache.org/), [Jersey](https://jersey.java.net/) (JAX-RS) und [MySQL](http://www.mysql.com/) aufgesetzt, hier die [Folien zur damaligen Übung](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/05-rest.pdf). Die Lokalisierung und Positionierung erfolgt mittels Textsuche auf den PDF-Gebäudeplänen.
 
-Ausgangsbasis für den Server war die Praxisphase aus dem Praktikum [Mobile und Verteilte Systeme](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/index.html) im Wintersemester 2013/14. Dort haben wir einen RESTful Web Service mit Hilfe von Java, [Tomcat](http://tomcat.apache.org/), [Jersey](https://jersey.java.net/) (JAX-RS) und [MySQL](http://www.mysql.com/) aufgesetzt, hier die [Folien zur damaligen Übung](http://www.mobile.ifi.uni-muenchen.de/studium_lehre/verg_semester/ws1314/msp/05-rest.pdf).
+Am besten setzt man eine Instanz des Servers auf der lokalen Entwicklungsumgebung auf. Nähere Infos zur damaligen Entwicklungsumgebung findest Du im nächsten Kapitel.
 
-Der Server aus dem Praktikum war über folgende Adresse erreichbar: [http://141.84.213.246:8080/lmu-navigator/](http://141.84.213.246:8080/lmu-navigator/). Wie lange dieser Server noch verfügbar bleibt, ist jedoch ungewiss.
+Die alten Repositories aus dem Praktikum sind noch auf GitLab verfügbar: [Wintersemester 2013/14](https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi), [Sommersemester 2014](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/), und das [aktuelle GitHub-Repository](https://github.com/lmu-navigator/server). Der Server aus dem Praktikum war über folgende Adresse erreichbar: [http://141.84.213.246:8080/lmu-navigator/](http://141.84.213.246:8080/lmu-navigator/rest/ping). Wie lange dieser Server noch verfügbar bleibt, ist jedoch ungewiss.
 
-Die alten Repositories aus dem Praktikum sind noch auf GitLab verfügbar: das Repo aus dem [Wintersemester 2013/14](https://gitlab.cip.ifi.lmu.de/loewe/lmu-navi) und aus dem darausfolgenden [Sommersemester 2014](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/).
 
 __Übersicht:__
 
-* Installation
-* Architektur (Struktur)
-* REST API
-* Deployment
+* [Installation](#installation)
+* [Architektur](#architektur) (Struktur des Servers)
+* [REST API](#rest-api)
+* [Deployment](#deployment-des-servers)
+* [Future Work](#future-work)
 
 ## Installation
 
@@ -54,26 +54,19 @@ Die Installation von [XAMPP](https://www.apachefriends.org/de/index.html) ist op
 
 Benötigte Plugins: [Eclipse Web Tools Platform](http://www.eclipse.org/webtools/)
 
-Import des Projektes
+__Import des Projektes__
 
 * GitHub Repo klonen
 
 * Eclipse installieren (Version siehe oben)
 
-* Projekt importieren
-<br>![](images/server/installation-1.png)
-
-* General > Existing Projects into Workspace
-<br>![](images/server/installation-2.png)
-
-* Projekt hinzufügen
-<br>![](images/server/installation-3.png)
+* Projekt importieren (General > Existing Projects into Workspace > Projekt hinzufügen)
 
 __Konfiguration von Eclipse__
 
-Sollte es zu Problemen bei dem Ausführen des Servlets kommen, kann es u.a. daran liegen, dass Eclipse das Projekt noch nicht als Dynamic Web Project erkennt. Hierfür müssen u.a. folgende Projekt-Einstellungen vorgenommen sein:
+Sollte es zu Problemen bei dem Ausführen des Servlets kommen, kann es daran liegen, dass Eclipse das Projekt noch nicht als Dynamic Web Project erkennt. Hierfür müssen u.a. folgende Projekt-Einstellungen vorgenommen sein:
 
-* Java Version 1.6, da auf dem aktuellen Server (http://141.84.213.246:8080) nur Java 1.6 installiert ist.
+* Java Version 1.6, da auf dem Praktikums-Server nur Java 1.6 installiert ist.
 <br>![](images/server/konfiguration-1.png)
 
 * Sicherstellen, dass die Facets _Dynamic Web Module_ und _JAXB_ ausgewählt sind.
@@ -156,7 +149,7 @@ public class Rooms {
 
 ```
 
-Für die Klassen XX bis XX ist der Aufbau analog.
+Für die Klassen Floor bis City ist der Aufbau analog.
 
 Als Datenbank-Anbindung haben wir jeweils die Klassen CityMySQL - RoomMySQL angelegt.
 
@@ -164,13 +157,11 @@ Als Datenbank-Anbindung haben wir jeweils die Klassen CityMySQL - RoomMySQL ange
 
 ## Datenbank
 
-Als Datenbank haben wir uns für [MySQL](mysql.com) und als Administrationsoberfläche für [PhpMyAdmin](http://www.phpmyadmin.net/) entschieden, da hierfür die meisten Vorkenntnisse vorhanden waren.
+Als Datenbank haben wir uns für [MySQL](mysql.com) und als Administrationsoberfläche für [PhpMyAdmin](http://www.phpmyadmin.net/) entschieden, da hierfür zum Zeitpunkt des Praktikums die meisten Vorkenntnisse vorhanden waren. Die Architektur der Datenbank ist angelehnt an die Struktur der CSV-Dateien, welche wir für den Import vom [Referat IV.1](http://www.uni-muenchen.de/einrichtungen/zuv/uebersicht/dez_iv/ref_iv1/index.html) der LMU München bekommen.
 
-Die Architektur der Datenbank ist angelehnt an die Struktur der CSV-Dateien, welche wir für den Import vom [Referat IV.1](http://www.uni-muenchen.de/einrichtungen/zuv/uebersicht/dez_iv/ref_iv1/index.html) der LMU München bekommen.
+Ein vollständiger MySQL-Dump der Datenbank kann im [privaten GitHub-Repository](https://github.com/lmu-navigator/data/tree/master/sql) gefunden werden (Zugriff auf Anfrage). Aus Datenschutzgründen dürfen wir die CSV-Dateien und den MySQL Dump nur in einem privaten Repository hosten.
 
-Ein vollständiger MySQL-Dump der Datenbank kann im privaten GitHub-Repository gefunden werden: https://github.com/lmu-navigator/data/tree/master/sql
-
-Zur Veranschaulichung findet ihr hier die Struktur der MySQL Tabellen (Stand Februar 2015). Den aktuellen Stand findet ihr in der https://github.com/lmu-navigator/data/blob/master/sql/mysql-init.sql Datei.
+Hier ein Auszug aus der mysql-init.sql Datei, um ein besseres Verständnis dafür zu bekommen wie die Daten zusammenhängen (Stand Februar 2015).
 
 ``` sql
 CREATE TABLE IF NOT EXISTS `1_city` (
@@ -236,66 +227,12 @@ CREATE TABLE IF NOT EXISTS `6_room` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `settings` (
-  `parameter` varchar(15) NOT NULL,
-  `value` text NOT NULL,
-  PRIMARY KEY (`parameter`),
-  UNIQUE KEY `param` (`parameter`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `version` (
-  `version` int(11) NOT NULL AUTO_INCREMENT,
-  `timestamp` int(11) NOT NULL,
-  `log` text NOT NULL,
-  PRIMARY KEY (`version`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
-
 ```
-
-
-Folgende Tabellen sind optional. Diese Tabellen waren für die Indoor-Routing Funktionalität unseres Prototypen benötigt.
-
-``` sql
-CREATE TABLE IF NOT EXISTS `routing_edges` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `FloorId` int(11) NOT NULL,
-  `Source` int(11) NOT NULL,
-  `Target` int(11) NOT NULL,
-  `Weight` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `routing_floor_connections` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `BuildingId` int(11) NOT NULL,
-  `Source` int(11) NOT NULL,
-  `Target` int(11) NOT NULL,
-  `Type` text NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `routing_nodes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `FloorId` int(11) NOT NULL,
-  `PosX` double DEFAULT NULL,
-  `PosY` double DEFAULT NULL,
-  `Entrance` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE IF NOT EXISTS `routing_room_connections` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `Node` int(11) NOT NULL,
-  `Room` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-```
-
 
 
 ## REST API
 
-Im folgenden wird die REST Schnittstelle des Tomcat Servers beschrieben. Aktuell kann die REST-API für den Server unter folgender Adresse aufgerufen werden: http://141.84.213.246:8080/lmu-navigator/rest/
+Im folgenden wird die REST Schnittstelle des Tomcat Servers beschrieben. Aktuell kann die REST-API für den Server unter folgender Adresse aufgerufen werden: http://localhost:8080/lmu-navigator/rest/
 
 Für den Produktiveinsatz arbeiten wir vorerst mit statischen JSON-Dateien. Zum einen da sich der Datenbestand meist nur einmal pro Semester verändert, zum anderen da wir dadurch auf Server der LMU München zurückgreifen können. Die neu generierten JSON-Dateien werden bei jeder Veränderung (Inkrementierung der Versionsnummer `/rest/version`) erneut in die App eingelesen. Die Aktualisierung ist einmal pro Semester in Rücksprache mit den Referaten geplant.
 
@@ -394,18 +331,23 @@ Schritt für Schritt-Anleitung:
 
 Der Pfad für `webapps` variiert von System zu System. Auf dem aktuellen System weist er auf `/var/lib/tomcat7/webapps`.
 
-Bei Problemen mit Tomcat auf dem [141.84.213.246](http://141.84.213.246:8080/)-Server am besten mal in das [GitLab-Wiki](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/wikis/tomcat-server) schauen.
+Bei Problemen mit Tomcat auf dem Praktikums-Server am besten mal in das [GitLab-Wiki](https://gitlab.cip.ifi.lmu.de/zieglerl/lmu-navigator/wikis/tomcat-server) schauen.
+
 
 
 ## Room Canvas
 
-Manually updating the room positions of on the RoomsOverview servlet, e.g.: http://localhost:8080/lmu-navigator/data/rooms?floor=g650301
+Sollte der Positionierungsalgorithmus nicht einwandfrei funktionieren, was bei < 1% der PDFs vorkommt, hat man die Möglichkeit jeden einzelnen Raum über die RoomCanvas-Ansicht manuell zu korrigieren. Was man beachten muss, damit die Positionierung einwandfrei durchgeführt wird, haben wir im [GitHub-Wiki](https://github.com/lmu-navigator/data/wiki/CSV-Dateien-anfordern) zusammengefasst (Zugang auf Anfrage). PDFs mit Schreibschutz, oder nicht durchsuchbarem Text, lassen sich nicht automatisiert positionieren.
+
+Hierfür gibt es die Möglichkeit manuell nachzuhelfen. Der RoomCanvas ist über folgende Adresse erreichbar: http://localhost:8080/lmu-navigator/data/rooms?floor=g650301
 
 Features:
-* Manual positioning of rooms cross iFrames
-* Press the ESC key to abort the manual positioning and scroll back to top
+* Manuelle Raum-Positionierung
+* Deaktivieren von nicht existierenden / nicht sichtbaren Räumen
+* Schnelle Navigation mittels der ESC Taste
 * Right click: Pan
-* Left click: select new position
+* Left click: neue Position auswählen
+
 
 # Future Work
 

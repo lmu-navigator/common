@@ -1,6 +1,6 @@
 # Android-App
 
-Hier findest Du Informationen, falls Du an der (Weiter-)Entwicklung der LMU-Navigator Android-App
+Hier findest Du Informationen, falls Du an der (Weiter-)Entwicklung der LMU-Raumfinder Android-App
 interessiert bist.
 
 ## Ursprung

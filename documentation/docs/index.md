@@ -1,10 +1,10 @@
-# LMU Navigator Dokumentation
+# LMU Raumfinder Dokumentation
 
-Willkommen bei der Dokumentation für den [LMU Navigator][1]!
+Willkommen bei der Dokumentation für den [LMU Raumfinder][1]!
 
-## Was ist der LMU Navigator?
+## Was ist der LMU Raumfinder?
 
-Der LMU Navigator ist ein studentisches Forschungsprojekt zweier Informatiker an der
+Der LMU Raumfinder ist ein studentisches Forschungsprojekt zweier Informatiker an der
 [LMU München][2]. Ziel des Projekts ist es, Studenten die Orientierung auf dem verteilten Campus der
 LMU zu erleichtern, indem Gebäude- und Raumdaten der Universität geeignet aufbereitet und in einer
 App bereitgestellt werden.
